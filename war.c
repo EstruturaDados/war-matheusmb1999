@@ -31,7 +31,7 @@
 
 // --- Função Principal (main) ---
 // Função principal que orquestra o fluxo do jogo, chamando as outras funções em ordem.
-int main() {
+// int main() {
     // 1. Configuração Inicial (Setup):
     // - Define o locale para português.
     // - Inicializa a semente para geração de números aleatórios com base no tempo atual.
@@ -51,8 +51,8 @@ int main() {
     // 3. Limpeza:
     // - Ao final do jogo, libera a memória alocada para o mapa para evitar vazamentos de memória.
 
-    return 0;
-}
+//     return 0;
+// }
 
 // --- Implementação das Funções ---
 
@@ -96,3 +96,66 @@ int main() {
 
 // limparBufferEntrada():
 // Função utilitária para limpar o buffer de entrada do teclado (stdin), evitando problemas com leituras consecutivas de scanf e getchar.
+
+
+// *********** MEU CÓDIGO INCIIA ABAIXO ***********
+// Jogo War - Nivel Novato
+
+/* America do Sul - Azul - 5
+   Africa - Vermelho - 3
+   Oceania - Verde - 4
+   Europa - Amarelo - 6
+   Asia - Roxo - 10
+*/
+#include <stdio.h>
+#include <string.h>
+
+// Estrutura para armazenar informacoes do territorio
+struct Territorio {
+    char nome[30];
+    char cor[10];
+    int tropas;
+};
+
+// Função para limpar o buffer de entrada
+void limparBufferEntrada() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
+int main() {
+    struct Territorio territorios[5]; // Define o limite de 5 territorios
+    int totalTerritorios = 0; // Contador de territorios cadastrados
+
+    printf("====================================\n");
+    printf("\n--- WAR ---\n");
+    printf("\n====================================\n");
+
+    // O loop para cadastrar territorios até o limite de 5 países
+    do {
+        printf("\nDigite o nome do territorio #%d: ", totalTerritorios + 1);
+        fgets(territorios[totalTerritorios].nome, 30, stdin); // Lê o nome do território e armazena na estrutura
+        territorios[totalTerritorios].nome[strcspn(territorios[totalTerritorios].nome, "\n")] = 0; // Descarta o '\n'
+
+        printf("Digite a cor do territorio #%d: ", totalTerritorios + 1);
+        fgets(territorios[totalTerritorios].cor, 10, stdin);
+        territorios[totalTerritorios].cor[strcspn(territorios[totalTerritorios].cor, "\n")] = 0;
+
+        printf("Digite o numero de tropas no territorio #%d: ", totalTerritorios + 1);
+        scanf("%d", &territorios[totalTerritorios].tropas);
+        limparBufferEntrada();
+
+        totalTerritorios++; // Incrementa o contador de territorios cadastrados ao final de cada iteração
+    } while (totalTerritorios < 5);
+
+    // O for percorre os territorios cadastrados acessando os dados pelo índice
+    printf("\n--- Territorios Cadastrados ---\n");
+    for (int i = 0; i < totalTerritorios; i++) {
+        printf("Territorio #%d:\n", i + 1);
+        printf("Nome: %s\n", territorios[i].nome);
+        printf("Cor: %s\n", territorios[i].cor);
+        printf("Tropas: %d\n\n", territorios[i].tropas);
+    }
+
+    return 0;
+}
